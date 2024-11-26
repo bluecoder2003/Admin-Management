@@ -7,11 +7,11 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: process.env.NODE_ENV === 'production' ? {
-    rejectUnauthorized: true,
-    ca: process.env.DB_SSL_CA ? require("fs").readFileSync(process.env.DB_SSL_CA).toString() : null,
-    minVersion: 'TLSv1.2'
-  } : false
+  // ssl: process.env.NODE_ENV === 'production' ? {
+  //   rejectUnauthorized: true,
+  //   ca: process.env.DB_SSL_CA ? require("fs").readFileSync(process.env.DB_SSL_CA).toString() : null,
+  //   minVersion: 'TLSv1.2'
+  // } : false
 });
 
 pool.getConnection((err, connection) => {

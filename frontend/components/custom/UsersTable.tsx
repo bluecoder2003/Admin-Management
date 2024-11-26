@@ -31,7 +31,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
     
     return users.filter((user) => {
       return (
-        user.user_name.toLowerCase().includes(query) ||
+        user.toLowerCase().includes(query) ||
         user.email.toLowerCase().includes(query) ||
         user.role_name.toLowerCase().includes(query) ||
         user.user_id.toString().includes(query)

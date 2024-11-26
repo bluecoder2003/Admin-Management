@@ -27,6 +27,28 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, permissions, description } = req.body;
+
+  try {
+    const [result] = await db.query(
+      "UPDATE roles SET name = ?, permissions = ?, description = ? WHERE id = ?",
+      [name, JSON.stringify(permissions), description, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Role not found" });
+    }
+
+    res.json({ id, name, permissions, description });
+  } catch (err) {
+    console.error("Error updating role:", err);
+    res.status(500).json({ error: "Failed to update role" });
+  }
+});
+
+
 
 
 module.exports = router;

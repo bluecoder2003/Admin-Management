@@ -11,7 +11,7 @@ app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:3000",
   credentials: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 
 app.use("/api/users", userRoutes);
 app.use("/api/roles", roleRoutes);

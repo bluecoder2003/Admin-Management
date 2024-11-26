@@ -12,11 +12,13 @@ import { Role } from '@/types/roles.type';
 import EditRolesModal from '@/components/roles/EditRolesModal';
 import { RolesTableProps } from '@/types/roles.type';
 import { useRoles } from '@/hooks/queries/useGetRolesQuery';
+import useUpdateRoleMutation from '@/hooks/mutations/useUpdateRoleMutation';
 
 const RolesTable: React.FC<RolesTableProps> = ({ searchQuery }) => {
   const { data: rolesData, isLoading, error } = useRoles(); // Ensure we handle loading state
   const [roles, setRoles] = useState<Role[]>([]); // Start with an empty array
   const [editingRole, setEditingRole] = useState<Role | null>(null);
+  const { mutate: updateRole} = useUpdateRoleMutation();
 
   // Sync `roles` state with `rolesData` once it loads
   useEffect(() => {
@@ -65,11 +67,19 @@ const RolesTable: React.FC<RolesTableProps> = ({ searchQuery }) => {
     setEditingRole(role);
   };
 
-  const handleSave = (editedRole: Role) => {
-    setRoles(
-      roles.map((role) => (role.id === editedRole.id ? editedRole : role))
-    );
-    setEditingRole(null);
+  const handleSave = async (editedRole: Role) => {
+    try {
+      // Call the mutation to update the role in the backend
+      await updateRole(editedRole);
+
+      // If successful, update the local state
+      setRoles(
+        roles.map((role) => (role.id === editedRole.id ? editedRole : role))
+      );
+      setEditingRole(null);
+    } catch (error) {
+      console.error("Error saving role:", error);
+    }
   };
 
   if (isLoading) {
