@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "Admin",
+      "permissions": ["Read", "Write", "Delete"],
+      "description": "Has full access to all system features and data."
+    },
+    {
+      "id": 2,
+      "name": "Editor",
+      "permissions": ["Read", "Write"],
+      "description": "Can view and modify content but cannot delete."
+    },
+    {
+      "id": 3,
+      "name": "Viewer",
+      "permissions": ["Read"],
+      "description": "Can only view content, no modifications allowed."
+    }
+  ]
+  
