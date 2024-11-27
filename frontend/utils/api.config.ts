@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const BASE_URL = "adminmanagement-production.up.railway.app";
 
 export interface ApiEndpoints {
   GET_ROLES: string;
