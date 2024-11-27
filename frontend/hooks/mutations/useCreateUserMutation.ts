@@ -5,7 +5,7 @@ export type UsersCreationRequestProps = {
   name: string;
   email: string;
   role_id: number;
-  status: string; // Using a union type assuming these are the possible values
+  status: string; 
 };
 export type UserCreationResponse = {
   id: number;

@@ -67,13 +67,13 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
   const handleEdit = (userId: number) => {
     const userToEdit = users.find((user) => user.user_id === userId);
     if (userToEdit) {
-      // Include all required properties from the User type
+      
       const userForEdit: User = {
         user_id: userToEdit.user_id,
         user_name: userToEdit.user_name,
         email: userToEdit.email,
         role_id: userToEdit.role_id,
-        role_name: userToEdit.role_name, // Include role_name
+        role_name: userToEdit.role_name, 
         status: userToEdit.status,
       };
       setEditingUser(userForEdit);
@@ -85,7 +85,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
   }
 
   if (error) {
-    // Type guard to check if error is an instance of Error
+    
     if (error instanceof Error) {
       return <p>Error loading users: {error.message}</p>;
     } else {

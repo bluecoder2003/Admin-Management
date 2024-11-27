@@ -23,7 +23,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   const [editedUser, setEditedUser] = useState<UserCreationResponse>({
     ...user,
     id: 0,
-  }); // Assuming id is required in UserCreationResponse and defaulting to 0
+  });
 
   const availableStatuses = ["Active", "Inactive"];
 
@@ -36,12 +36,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
       [field]: value,
     }));
   };
-  // const handleInputChangeForRole = (field: keyof Role, value: number) => {
-  //   setEditedRole(prev => ({
-  //     ...prev,
-  //     [field]: value
-  //   }));
-  // };
+  
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

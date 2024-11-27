@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import UserManagement from '../users/UserManagement';
 import RolesManagement from '../roles/RolesManagement';
 
-// Navigation Item Interface
+
 interface NavItem {
   icon: React.ElementType;
   label: string;
   component: JSX.Element;
 }
 
-// Animated Hamburger Component
+
 const AnimatedHamburger = ({ onToggle }: { onToggle?: (isOpen: boolean) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,7 +50,7 @@ const AnimatedHamburger = ({ onToggle }: { onToggle?: (isOpen: boolean) => void 
   );
 };
 
-// Navigation Items
+
 const navItems: NavItem[] = [
   { 
     icon: Users, 
@@ -64,7 +64,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-// SideNav Component
+
 const SideNav: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,7 +77,7 @@ const SideNav: React.FC = () => {
 
   return (
     <div className="flex min-h-screen">
-      {/* Mobile Hamburger */}
+      
       <div className="fixed top-4 left-4 z-50">
         <AnimatedHamburger 
           onToggle={(isOpen) => {
@@ -87,7 +87,7 @@ const SideNav: React.FC = () => {
         />
       </div>
 
-      {/* Mobile Overlay */}
+      
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
@@ -95,11 +95,11 @@ const SideNav: React.FC = () => {
         />
       )}
 
-      {/* Sidebar */}
+      
       <div
         className={cn(
           "bg-product-leftnav text-product-text1 p-6 transition-all duration-300 ease-in-out flex flex-col fixed top-0 left-0 z-40 h-full",
-          "w-2/3 lg:w-64", // Increased mobile width to 2/3 of screen
+          "w-2/3 lg:w-64", 
           isExpanded ? "lg:w-64" : "lg:w-24",
           "lg:translate-x-0",
           !isMobileMenuOpen && "-translate-x-full lg:translate-x-0"
@@ -129,8 +129,8 @@ const SideNav: React.FC = () => {
               }}
               className={cn(
                 "flex items-center space-x-3 p-4 rounded-lg transition-colors w-full text-left",
-                "lg:p-3 lg:space-x-2", // Smaller padding on desktop
-                "mobile:text-lg", // Larger text on mobile
+                "lg:p-3 lg:space-x-2", 
+                "mobile:text-lg", 
                 index === activeIndex
                   ? "bg-[#252235] text-product-text3"
                   : "hover:bg-[#252235] hover:text-product-text3"
@@ -147,17 +147,17 @@ const SideNav: React.FC = () => {
         </nav>
       </div>
 
-      {/* Main Content */}
+      
       <div
         className={cn(
           "flex-1 p-6 bg-product-bg text-product-text1 transition-all duration-300",
-          "overflow-x-auto hide-scrollbar", // Enable horizontal scrolling and hide scrollbar
+          "overflow-x-auto", 
           "lg:ml-20",
           isExpanded ? "lg:ml-64" : "lg:ml-24"
         )}
       >
-        {/* Content Wrapper */}
-        <div className="min-w-[768px]"> {/* Minimum width to prevent squishing */}
+        
+        <div className="min-w-[768px]"> 
           {navItems[activeIndex].component}
         </div>
       </div>

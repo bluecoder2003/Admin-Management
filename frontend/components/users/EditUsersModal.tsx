@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
-// import { User } from "@/types/users.type";
 import { useRoles } from "@/hooks/queries/useGetRolesQuery";
 import useUpdateUserMutation, {
   UserResponse,
@@ -59,29 +58,6 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   };
 
   const availableStatuses = ["Active", "Inactive"];
-  // const handleSave = async () => {
-  //   try {
-  //     await updateUser.mutate(
-  //       {
-  //         id: user.id,
-  //         user: {
-  //           name: editedUser.name,
-  //           email: editedUser.email,
-  //           role_id: editedUser.role_id,
-  //           status: editedUser.status,
-  //         },
-  //       },
-  //       {
-  //         onSuccess: (data) => {
-  //           // onSave(data);
-  //           onClose();
-  //         },
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error("Failed to update user:", error);
-  //   }
-  // };
   const handleInputChange = (
     field: keyof UserResponse,
     value: string | number
