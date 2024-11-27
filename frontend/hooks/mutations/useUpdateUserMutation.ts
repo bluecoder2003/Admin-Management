@@ -1,21 +1,31 @@
 import { useMutation } from 'react-query'
 import { ENDPOINTS } from '@/utils/api.config'
 import { client } from '@/utils/client'
-import { User } from '@/types/users.type'
 
-export default function useUpdateRoleMutation() {
-  return useMutation({
-    mutationFn: async (user: User & { id: number }) => {
-      const response = await client
-        .put(`${ENDPOINTS.UPDATE_ROLE}/${user.id}`, { json: user })
-        .json<User>()
-      return response
+export interface UserRequest
+{
+  name: string,
+  email: string,
+  role_id: number,
+  status: string
+}
+
+export interface UserResponse
+{
+    id:number ,
+    name: string,
+    email: string,
+    role_id: number,
+    status: string
+}
+
+
+export default function useUpdateUserMutation(user: UserRequest,id:number) {
+  return useMutation<UserResponse, Error, UserRequest, unknown>(async () => {
+    const response = await client
+      .put(`${ENDPOINTS.UPDATE_USER}/${id}`, { json: user })
+      .json<UserResponse>()
+    return response
     },
-    onError: (error: Error) => {
-      console.error("Error updating role:", error)
-    },
-    onSuccess: (data: User) => {
-      console.log("User updated successfully:", data)
-    }
-  })
+  )
 }

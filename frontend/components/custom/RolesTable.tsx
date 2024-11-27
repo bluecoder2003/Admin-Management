@@ -47,13 +47,13 @@ const RolesTable: React.FC<RolesTableProps> = ({ searchQuery }) => {
   const getPermissionColor = (permission: string) => {
     switch (permission) {
       case 'Read':
-        return 'bg-green-100 text-green-800';
+        return 'bg-product-leftnav text-purple-800';
       case 'Write':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-product-leftnav text-blue-800';
       case 'Delete':
-        return 'bg-red-100 text-red-800';
+        return 'bg-product-leftnav text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-product-leftnav text-gray-800';
     }
   };
 
@@ -135,14 +135,14 @@ const RolesTable: React.FC<RolesTableProps> = ({ searchQuery }) => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleEdit(role)}
-                    className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                    className="p-1 hover:bg-product-leftnav rounded-full transition-colors"
                     aria-label="Edit role"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(role.id)}
-                    className="p-1 hover:bg-red-100 rounded-full transition-colors text-red-600"
+                    className="p-1 hover:bg-product-leftnav rounded-full transition-colors text-red-600"
                     aria-label="Delete role"
                   >
                     <Trash2 className="h-4 w-4" />

@@ -1,8 +1,9 @@
 export interface User {
-  name: string;
+  user_id: number;
+  user_name: string;
   email: string;
-  role_id: number;
   status: string;
+  role_name: string;
 }
 
 export interface UsersTableProps {

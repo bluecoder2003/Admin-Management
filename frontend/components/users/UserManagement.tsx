@@ -3,6 +3,7 @@ import UsersTable from '../custom/UsersTable';
 import { User } from '@/types/users.type';
 import EditUserModal from './EditUsersModal';
 import useCreateUserMutation from '@/hooks/mutations/useCreateUserMutation';
+// import { ENDPOINTS } from '@/utils/api.config';
 
 const UserManagement = () => {
   const [addingUser, setAddingUser] = useState<User | null>(null);
@@ -19,18 +20,18 @@ const UserManagement = () => {
 
   return (
     <div className='w-full'>
-      <div className='border-b border-slate-100 h-10'></div>
+      <div className='border-b border-product-border2 h-10'></div>
       <div className="flex justify-between py-10">
         <input
           type="text"
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-8 pr-4 py-2 border rounded-md"
+          className="pl-8 pr-4 py-2 rounded-md bg-product-leftnav border border-product-border2 focus:border-product-border1 focus:outline-none"
         />
         <button
-          className="bg-blue-700 text-white px-4 py-2 rounded-md"
-          onClick={() => setAddingUser({  name: '', email: '', role_id:0, status: '' })}
+          className="bg-product-leftnav border border-product-border1 text-product-border1 px-4 py-2 rounded-md"
+          onClick={() => setAddingUser({ name: '', email: '', role_id:0, status: '' })}
         >
           + Add
         </button>

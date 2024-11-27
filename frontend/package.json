@@ -19,12 +19,13 @@
     "input": "^1.0.1",
     "ky": "^1.7.2",
     "lucide-react": "^0.460.0",
+    "mini-svg-data-uri": "^1.4.4",
     "next": "15.0.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-query": "^3.39.3",
     "shadcn-ui": "^0.9.3",
-    "tailwind-merge": "^2.5.4",
+    "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

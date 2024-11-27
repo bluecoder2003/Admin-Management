@@ -25,10 +25,10 @@ const EditModal: React.FC<EditModalProps> = ({ title, role, onClose, onSave }) =
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+      <div className="bg-product-leftnav rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">{title}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
+          <button onClick={onClose} className="p-2 hover:bg-[#252235] rounded-full">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -40,7 +40,7 @@ const EditModal: React.FC<EditModalProps> = ({ title, role, onClose, onSave }) =
               type="text"
               value={editedRole.name}
               onChange={e => setEditedRole(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 bg-product-leftnav border rounded-md border-product-border2 focus:border-product-border1 focus:outline-none"
             />
           </div>
 
@@ -49,7 +49,7 @@ const EditModal: React.FC<EditModalProps> = ({ title, role, onClose, onSave }) =
             <textarea
               value={editedRole.description}
               onChange={e => setEditedRole(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 bg-product-leftnav border rounded-md border-product-border2 focus:border-product-border1 focus:outline-none"
               rows={3}
             />
           </div>
@@ -63,8 +63,8 @@ const EditModal: React.FC<EditModalProps> = ({ title, role, onClose, onSave }) =
                   onClick={() => handlePermissionToggle(permission)}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     editedRole.permissions.includes(permission)
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'bg-gray-100 text-gray-800'
+                      ? 'bg-product-border1 text-product-text1'
+                      : 'bg-product-text3 text-gray-800'
                   }`}
                 >
                   {permission}
@@ -78,13 +78,13 @@ const EditModal: React.FC<EditModalProps> = ({ title, role, onClose, onSave }) =
         <div className="flex justify-end space-x-2 mt-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50"
+            className="px-4 py-2 text-sm border border-product-border1 rounded-lg hover:text-purple-300"
           >
             Cancel
           </button>
           <button
             onClick={() => onSave(editedRole)}
-            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-product-border1"
           >
             Save Changes
           </button>
