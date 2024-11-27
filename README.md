@@ -57,14 +57,7 @@ This project is a basic CRUD application focused on user management from the adm
    bun install
    ```
 
-4. **Set Up Environment Variables**  
-   Create a `.env` file in the root directory with the following:
-
-   ```env
-   DATABASE_URL=<your_mysql_connection_string>
-   ```
-
-5. **Run the Development Server**
+4. **Run the Development Server**
 
    ```bash
    bun run dev
