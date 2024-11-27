@@ -1,4 +1,4 @@
-export const BASE_URL = "adminmanagement-production.up.railway.app";
+export const BASE_URL = "https://adminmanagement-production.up.railway.app";
 
 export interface ApiEndpoints {
   GET_ROLES: string;
