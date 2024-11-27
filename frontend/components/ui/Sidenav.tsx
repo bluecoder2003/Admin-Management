@@ -23,25 +23,25 @@ const AnimatedHamburger = ({ onToggle }: { onToggle?: (isOpen: boolean) => void 
   return (
     <button
       onClick={handleClick}
-      className="relative h-14 w-14 rounded-full transition-colors duration-200 lg:hidden"
+      className="relative h-8 w-8 rounded-full transition-colors duration-200 lg:hidden"
       aria-label={isOpen ? "Close menu" : "Open menu"}
     >
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-6">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-4">
         <span
           className={cn(
-            "absolute h-0.5 w-8 bg-product-text1 transform transition-all duration-300 ease-in-out",
+            "absolute h-0.5 w-6 bg-product-text1 transform transition-all duration-300 ease-in-out",
             isOpen ? "top-2.5 rotate-45" : "top-0"
           )}
         />
         <span
           className={cn(
-            "absolute h-0.5 w-8 bg-product-text1 top-2.5 transform transition-all duration-200 ease-in-out",
+            "absolute h-0.5 w-6 bg-product-text1 top-2.5 transform transition-all duration-200 ease-in-out",
             isOpen ? "opacity-0" : "opacity-100"
           )}
         />
         <span
           className={cn(
-            "absolute h-0.5 w-8 bg-product-text1 transform transition-all duration-300 ease-in-out",
+            "absolute h-0.5 w-6 bg-product-text1 transform transition-all duration-300 ease-in-out",
             isOpen ? "top-2.5 -rotate-45" : "top-5"
           )}
         />

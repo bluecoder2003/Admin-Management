@@ -68,7 +68,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         ? `${baseClass} bg-[#252235] text-green-800`
         : `${baseClass} bg-[#252235] text-red-800`;
     }
-    return `${baseClass} bg-[#252235] text-gray-600`;
+    return `${baseClass} bg-[#252235] text-white`;
   };
 
   return (

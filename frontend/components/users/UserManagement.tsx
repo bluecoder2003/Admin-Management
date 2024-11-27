@@ -23,7 +23,7 @@ const UserManagement = () => {
 
   return (
     <div className="w-full">
-      <div className="border-b border-product-border2 h-10"></div>
+      <div className="h-10"></div>
       <div className="flex justify-between py-10">
         <input
           type="text"
