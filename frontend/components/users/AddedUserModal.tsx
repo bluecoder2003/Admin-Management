@@ -1,89 +1,34 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
-// import { User } from "@/types/users.type";
 import { useRoles } from "@/hooks/queries/useGetRolesQuery";
-import useUpdateUserMutation, {
-  UserResponse,
-} from "@/hooks/mutations/useUpdateUserMutation";
+import {
+  UserCreationResponse,
+  UsersCreationRequestProps,
+} from "@/hooks/mutations/useCreateUserMutation";
 
-interface EditUserModalProps {
+interface AddUserModalProps {
   title: string;
-  user: {
-    user_id: number;
-    user_name: string;
-    email: string;
-    role_id: number;
-    status: string;
-  };
+  user: UsersCreationRequestProps;
   onClose: () => void;
+  onSave: (addedUser: UserCreationResponse) => void;
 }
 
-const EditUserModal: React.FC<EditUserModalProps> = ({
+const AddUserModal: React.FC<AddUserModalProps> = ({
   title,
   user,
   onClose,
-  // onSave,
+  onSave,
 }) => {
-  const [editedUser, setEditedUser] = useState<UserResponse>({
-    id: user.user_id,
-    name: user.user_name,
-    email: user.email,
-    role_id: user.role_id,
-    status: user.status,
-  });
-
   const { data: availableRoles } = useRoles();
-  const updateUser = useUpdateUserMutation();
-
-  const handleSave = async () => {
-    try {
-      await updateUser.mutate(
-        {
-          id: editedUser.id,
-          user: {
-            name: editedUser.name,
-            email: editedUser.email,
-            role_id: editedUser.role_id,
-            status: editedUser.status,
-          },
-        },
-        {
-          onSuccess: () => {
-            onClose();
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Failed to update user:", error);
-    }
-  };
+  const [editedUser, setEditedUser] = useState<UserCreationResponse>({
+    ...user,
+    id: 0,
+  }); // Assuming id is required in UserCreationResponse and defaulting to 0
 
   const availableStatuses = ["Active", "Inactive"];
-  // const handleSave = async () => {
-  //   try {
-  //     await updateUser.mutate(
-  //       {
-  //         id: user.id,
-  //         user: {
-  //           name: editedUser.name,
-  //           email: editedUser.email,
-  //           role_id: editedUser.role_id,
-  //           status: editedUser.status,
-  //         },
-  //       },
-  //       {
-  //         onSuccess: (data) => {
-  //           // onSave(data);
-  //           onClose();
-  //         },
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error("Failed to update user:", error);
-  //   }
-  // };
+
   const handleInputChange = (
-    field: keyof UserResponse,
+    field: keyof UsersCreationRequestProps,
     value: string | number
   ) => {
     setEditedUser((prev) => ({
@@ -91,6 +36,12 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
       [field]: value,
     }));
   };
+  // const handleInputChangeForRole = (field: keyof Role, value: number) => {
+  //   setEditedRole(prev => ({
+  //     ...prev,
+  //     [field]: value
+  //   }));
+  // };
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -112,7 +63,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   const getStatusButtonClass = (status: string) => {
     const baseClass =
       "px-3 py-1 rounded-full text-sm font-medium transition-colors";
-    if (editedUser.status === status) {
+    if (editedUser?.status === status) {
       return status === "Active"
         ? `${baseClass} bg-[#252235] text-green-800`
         : `${baseClass} bg-[#252235] text-red-800`;
@@ -141,7 +92,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             </label>
             <input
               type="text"
-              value={editedUser.name}
+              value={editedUser?.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
               className="w-full p-2 bg-product-leftnav border rounded-md border-product-border2 focus:border-product-border1 focus:outline-none"
               placeholder="Enter user name"
@@ -154,16 +105,16 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             </label>
             <input
               type="email"
-              value={editedUser.email}
+              value={editedUser?.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
               className={`w-full p-2 bg-product-leftnav border rounded-md border-product-border2 focus:border-product-border1 focus:outline-none ${
-                editedUser.email && !validateEmail(editedUser.email)
+                editedUser?.email && !validateEmail(editedUser.email)
                   ? "border-red-500 focus:border-red-500"
                   : "border-gray-300 focus:border-blue-500"
               }`}
               placeholder="Enter email address"
             />
-            {editedUser.email && !validateEmail(editedUser.email) && (
+            {editedUser?.email && !validateEmail(editedUser?.email) && (
               <p className="text-red-500 text-sm mt-1">
                 Please enter a valid email address
               </p>
@@ -181,10 +132,10 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
                   onClick={() => {
                     handleInputChange("role_id", role.id);
                   }}
-                  className={getRoleButtonClass(role.id)}
+                  className={getRoleButtonClass(user.role_id)}
                 >
                   {role.name}
-                  {editedUser.role_id === role.id && (
+                  {editedUser?.role_id === role.id && (
                     <span className="ml-1">✓</span>
                   )}
                 </button>
@@ -204,7 +155,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
                   className={getStatusButtonClass(status)}
                 >
                   {status}
-                  {editedUser.status === status && (
+                  {editedUser?.status === status && (
                     <span className="ml-1">✓</span>
                   )}
                 </button>
@@ -221,7 +172,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             Cancel
           </button>
           <button
-            onClick={handleSave}
+            onClick={() => onSave(editedUser)}
             className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-product-border1"
           >
             Save Changes
@@ -232,4 +183,4 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   );
 };
 
-export default EditUserModal;
+export default AddUserModal;

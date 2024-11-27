@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Product Colors */
-    --prod-bg: 240 14% 7%; /* #13111C */
+    --prod-bg: 240 23% 9%; /* #13111C */
     --prod-text-color1: 0 0% 98%; /* #F8FAFC */
     --prod-text-color2: 210 13% 60%; /* #94A3B8 */
     --prod-text-color3: 274 72% 79%; /* #BF93EC */

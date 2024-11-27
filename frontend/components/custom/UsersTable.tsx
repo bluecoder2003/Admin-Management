@@ -1,4 +1,4 @@
-import React,{useState,useMemo,useEffect} from 'react';
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Table,
   TableHeader,
@@ -6,33 +6,29 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from '@/components/ui/Table';
-import { Pencil, Trash2 } from 'lucide-react';
-import { User } from '@/types/users.type';
-import EditUserModal from '../users/EditUsersModal';
-import { UsersTableProps } from '@/types/users.type';
-import { useUsers } from '@/hooks/queries/useGetUsersQuery';
-import useUpdateUserMutation from '@/hooks/mutations/useUpdateUserMutation';
+} from "@/components/ui/Table";
+import { Pencil, Trash2 } from "lucide-react";
+import { User } from "@/types/users.type";
+import EditUserModal from "../users/EditUsersModal";
+import { UsersTableProps } from "@/types/users.type";
+import { useUsers } from "@/hooks/queries/useGetUsersQuery";
 
 const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
   const { data: usersData, isLoading, error } = useUsers();
   const [users, setUsers] = useState<User[]>([]);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const { mutate: updateUser} = useUpdateUserMutation();
-
 
   useEffect(() => {
     if (usersData) {
       setUsers(usersData as User[]);
     }
   }, [usersData]);
-  console.log(users);
 
   const filteredUsers = useMemo(() => {
-    const query = (searchQuery || '').toLowerCase().trim();
-    
+    const query = (searchQuery || "").toLowerCase().trim();
+
     if (!query) return users;
-    
+
     return users.filter((user) => {
       return (
         user.user_name.toLowerCase().includes(query) ||
@@ -45,49 +41,42 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'Admin':
-        return 'bg-product-leftnav text-purple-800';
-      case 'Editor':
-        return 'bg-product-leftnav text-blue-800';
-      case 'Viewer':
-        return 'bg-product-leftnav text-green-800';
+      case "Admin":
+        return "bg-product-leftnav text-purple-800";
+      case "Editor":
+        return "bg-product-leftnav text-blue-800";
+      case "Viewer":
+        return "bg-product-leftnav text-green-800";
       default:
-        return 'bg-product-leftnav text-orange-800';
+        return "bg-product-leftnav text-orange-800";
     }
   };
 
   const getStatusColor = (status: string) => {
-    return status === 'Active' 
-      ? 'bg-product-leftnav text-green-800' 
-      : 'bg-product-leftnav text-red-800';
+    return status === "Active"
+      ? "bg-product-leftnav text-green-800"
+      : "bg-product-leftnav text-red-800";
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(user => user.user_id !== id));
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      setUsers(users.filter((user) => user.user_id !== id));
     }
   };
 
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-  };
-
-  const handleSave = async(editedUser: User) => {
-    if (!editedUser.user_id || !editedUser.role_name) {
-      console.error("Missing user ID or role name in edited user data.");
-      return;
-    }
-    try {
-      // Call the mutation to update the role in the backend
-      await updateUser(editedUser);
-
-      // If successful, update the local state
-      setUsers(
-        users.map((user) => (user.user_id === editedUser.user_id ? editedUser : user))
-      );
-      setEditingUser(null);
-    } catch (error) {
-      console.error("Error saving user:", error);
+  const handleEdit = (userId: number) => {
+    const userToEdit = users.find((user) => user.user_id === userId);
+    if (userToEdit) {
+      // Include all required properties from the User type
+      const userForEdit: User = {
+        user_id: userToEdit.user_id,
+        user_name: userToEdit.user_name,
+        email: userToEdit.email,
+        role_id: userToEdit.role_id,
+        role_name: userToEdit.role_name, // Include role_name
+        status: userToEdit.status,
+      };
+      setEditingUser(userForEdit);
     }
   };
 
@@ -130,19 +119,27 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
                 <a href={`mailto:${user.email}`}>{user.email}</a>
               </TableCell>
               <TableCell>
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRoleColor(user.role_name)}`}>
+                <span
+                  className={`px-2 py-1 text-xs font-medium rounded-full ${getRoleColor(
+                    user.role_name
+                  )}`}
+                >
                   {user.role_name}
                 </span>
               </TableCell>
               <TableCell>
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(user.status)}`}>
+                <span
+                  className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                    user.status
+                  )}`}
+                >
                   {user.status}
                 </span>
               </TableCell>
               <TableCell>
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => handleEdit(user)}
+                    onClick={() => handleEdit(user.user_id)}
                     className="p-1 hover:bg-product-leftnav rounded-full transition-colors"
                     aria-label="Edit user"
                   >
@@ -161,18 +158,16 @@ const UsersTable: React.FC<UsersTableProps> = ({ searchQuery }) => {
           ))}
         </TableBody>
       </Table>
-    {editingUser && (
-      <EditUserModal
-        title="Edit User"
-        user={editingUser}
-        onClose={() => setEditingUser(null)}
-        onSave={handleSave}
-      />
-    )}
-   </>   
+      {editingUser && (
+        <EditUserModal
+          title="Edit User"
+          user={editingUser}
+          onClose={() => setEditingUser(null)}
+          // onSave={handleSave}
+        />
+      )}
+    </>
   );
 };
 
 export default UsersTable;
-
-

@@ -117,7 +117,7 @@ const SideNav: React.FC = () => {
           )}
         </button>
 
-        <nav className="mt-12 space-y-4">
+        <nav className="mt-12 space-y-4 md:mt-0">
           {navItems.map((item, index) => (
             <button
               key={item.label}
