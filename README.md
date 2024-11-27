@@ -1,83 +1,107 @@
-# Admin Management
+# RBAC Admin Management
 
-This project is a basic CRUD application focused on user management from the admin side. Built using a modern tech stack, it ensures high performance, scalability, and maintainability.
+A comprehensive Role-Based Access Control (RBAC) system with an intuitive admin dashboard for managing users, roles, and permissions. This project demonstrates modern frontend and backend architecture, focusing on security, usability, and performance.
 
+![Users Dashboard](https://github.com/user-attachments/assets/f7711046-a1bb-40d3-9d8d-73dd4b891285)
+![Roles Management](https://github.com/user-attachments/assets/ecc3f19f-3413-4a6a-b2e8-8c441f538af8)
 
-<img width="1470" alt="users" src="https://github.com/user-attachments/assets/f7711046-a1bb-40d3-9d8d-73dd4b891285">
+## Features
 
-<img width="1470" alt="roles" src="https://github.com/user-attachments/assets/ecc3f19f-3413-4a6a-b2e8-8c441f538af8">
+### Core RBAC Functionality
+- **User Management**
+  - Complete CRUD operations for user accounts
+  - Bulk user actions (activate/deactivate, role assignment) 
 
+- **Role Management**
+  - Dynamic role creation and modification
+  - Hierarchical role structures
+  - Role-based permission inheritance
+  - Template roles for quick setup
+
+- **Permission System**
+  - Granular permission controls
+  - Custom permission groups
+  - Resource-level access control
+  - Action-based permissions (Create, Read, Update, Delete)
+
+### Additional Features
+- **Responsive Admin Dashboard**
+  - Mobile-first design approach
+  - Real-time updates using React Query
+  - Interactive data tables with sorting and filtering
+  - Intuitive drag-and-drop interfaces
 
 
 ## Tech Stack
 
 ### Frontend
-- **Next.js**: For server-side rendering and building the frontend application.
-- **Tailwind CSS**: For modern, utility-first styling and responsive design.
-- **TanStack Query (React Query)**: For data management and server-state synchronization.
+- **Next.js**: Server-side rendering and robust routing
+- **Tailwind CSS**: Responsive design system
+- **TanStack Query**: Efficient server-state management
 
 ### Backend
-- **Express**: For building the backend API and handling server-side logic.
-- **MySQL**: For database management.
-- **Aiven**: For hosting and connecting to the MySQL database.
-- **Railway**: For deploying the backend services.
+- **Express**: RESTful API development
+- **MySQL**: Relational database for RBAC data
+- **Aiven**: Database hosting and management
+- **Railway**: Backend deployment platform
 
-### Package Manager & Runtime
-- **Bun**: For running the application and managing dependencies, offering faster builds and execution.
-
-## Project Features
-
-- **User Management**: Admins can perform CRUD operations for users.
-- **Responsive Admin Dashboard**: User-friendly interface optimized for all devices.
-- **Efficient Data Fetching**: Leveraging React Query for seamless server-state synchronization.
+### Development Tools
+- **Bun**: Fast JavaScript runtime and package manager
+- **TypeScript**: Type safety and better developer experience
+- **ESLint/Prettier**: Code quality and formatting
 
 ## Getting Started
 
 ### Prerequisites
-- **Bun** (>= 1.x)
-- **MySQL Server** (if running locally)
+- Bun >= 1.0.0
+- Node.js >= 18.0.0
+- MySQL >= 8.0
+
+### Environment Setup
+1. Create a `.env` file in the root directory:
+```env
+DATABASE_URL=mysql://user:password@host:port/dbname
+JWT_SECRET=your_jwt_secret
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+```
 
 ### Installation
 
-1. **Clone the Repository**
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/rbac-admin.git
+```
 
-   ```bash
-   git clone https://github.com/your-username/admin-management.git
-   ```
+2. Install dependencies:
+```bash
+cd rbac-admin
+bun install
+```
 
-2. **Navigate to the Project Directory**
+3. Set up the database:
+```bash
+bun run db:migrate
+bun run db:seed
+```
 
-   ```bash
-   cd admin-management
-   ```
+4. Start the development server:
+```bash
+bun run dev
+```
 
-3. **Install Dependencies**
+The application will be available at `http://localhost:3000`.
 
-   ```bash
-   bun install
-   ```
+### Production Deployment
 
-4. **Run the Development Server**
+1. Build the application:
+```bash
+bun run build
+```
 
-   ```bash
-   bun run dev
-   ```
-
-   The application will be available at `http://localhost:3000`.
-
-### Building for Production
-
-1. **Build the Project**
-
-   ```bash
-   bun run build
-   ```
-
-2. **Start the Production Server**
-
-   ```bash
-   bun run start
-   ```
+2. Start the production server:
+```bash
+bun run start
+```
 
 ## Challenges Faced
 
@@ -86,4 +110,3 @@ This project is a basic CRUD application focused on user management from the adm
 - **Responsive Design**: Designing a user-friendly admin dashboard for all screen sizes.
 - **Deployment**: Smooth backend deployment on Railway, ensuring reliable communication with the frontend.
 
-## Contributing
