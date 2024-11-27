@@ -1,6 +1,7 @@
 # Admin Management
 
 This project is a basic CRUD application focused on user management from the admin side. Built using a modern tech stack, it ensures high performance, scalability, and maintainability.
+<img width="1470" alt="Screenshot 2024-11-28 at 1 16 30 AM" src="https://github.com/user-attachments/assets/66504ba3-fcde-410b-834b-5493c0286576">
 
 ## Tech Stack
 
